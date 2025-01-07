@@ -1,16 +1,16 @@
 interface CardProps {
-  gif_url: string
+  image_url: string
 }
 
 export default function Card(props: CardProps) {
-  const { gif_url } = props
+  const { image_url } = props
 
   return (
       <figure>
         <img
-          src={ gif_url }
+          src={ image_url }
           alt="Shoes"
-          className="rounded-xl shadow-xl w-96 h-96 object-cover"
+          className="rounded-xl shadow-xl w-48 h-48 object-cover"
           />
       </figure>
   )
