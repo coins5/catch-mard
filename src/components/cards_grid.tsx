@@ -3,11 +3,12 @@ import { uid } from 'uid'
 
 interface CardListProps {
   image_urls: string[]
+  columns: number
 }
 
 
 export default function CardsGrid(props: CardListProps) {
-  const { image_urls } = props
+  const { image_urls, columns } = props
 
   const renderCards = () => {
     return image_urls.map((url: string) => (
@@ -15,8 +16,9 @@ export default function CardsGrid(props: CardListProps) {
     ));
   };
   
+  // ! TODO: Problem with this columns
   return (
-    <div className={`grid grid-cols-8 gap-4`}>
+    <div className={`grid grid-cols-${columns} gap-4`}>
       { renderCards() }
     </div>
   )
