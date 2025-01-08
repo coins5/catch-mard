@@ -21,7 +21,7 @@ export const availabelDifficulties: IDifficultySpec[] = [
   {
     id: 'medium',
     name: 'Medium',
-    cardsCount: 6,
+    cardsCount: 8,
     itemsToCollect: 2,
     maxErrors: 4,
     randomMoveAfterPick: false,
@@ -30,7 +30,7 @@ export const availabelDifficulties: IDifficultySpec[] = [
   {
     id: 'hard',
     name: 'Hard',
-    cardsCount: 12,
+    cardsCount: 16,
     itemsToCollect: 3,
     maxErrors: 5,
     randomMoveAfterPick: false,
@@ -39,7 +39,7 @@ export const availabelDifficulties: IDifficultySpec[] = [
   {
     id: 'darksouls',
     name: 'Dark Souls',
-    cardsCount: 32,
+    cardsCount: 64,
     itemsToCollect: 4,
     maxErrors: 6,
     randomMoveAfterPick: true,

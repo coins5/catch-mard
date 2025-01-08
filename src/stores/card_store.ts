@@ -12,7 +12,8 @@ export function loadCards () {
     
     getImages({
       search_query: $selectedCarsSearch.value,
-      limit: $selectedDifficulty.value.cardsCount
+      limit: $selectedDifficulty.value.cardsCount,
+      multiply: $selectedDifficulty.value.itemsToCollect
     })
       .then((images) => {
         $cards.set(images)
