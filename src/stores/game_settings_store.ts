@@ -8,10 +8,14 @@ export function findDifficultyById (difficultyid: string) {
 }
 
 export const $selectedDifficulty = atom<IDifficultySpec>(findDifficultyById('easy'))
-export const $selectedCarsSearch = atom<string>('ai')
+export const $selectedCardsSearch = atom<string>('ai')
 
 export function selectDifficulty (difficultyid: string) {
   $selectedDifficulty.set(
     findDifficultyById(difficultyid)
   )
+}
+
+export function selectCardsSearch (search: string) {
+  $selectedCardsSearch.set(search)
 }

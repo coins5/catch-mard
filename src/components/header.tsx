@@ -2,12 +2,16 @@ import {
   availabelDifficulties,
 } from "../models/game_settings"
 
-import { $selectedDifficulty, selectDifficulty } from "../stores/game_settings_store"
+import { $selectedDifficulty, selectDifficulty, selectCardsSearch } from "../stores/game_settings_store"
+import { loadCards } from "../stores/card_store"
 import { useStore } from "@nanostores/react"
 
 function updateGameSettings (e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault()
-  console.log('submit')
+  selectCardsSearch(
+    (document.getElementById('search_image_text') as HTMLInputElement).value
+  )
+  loadCards()
 }
 export default function Header () {
   const selectedDifficulty = useStore($selectedDifficulty)

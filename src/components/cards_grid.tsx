@@ -16,7 +16,7 @@ export default function CardsGrid(props: CardListProps) {
   };
   
   return (
-    <div className="grid grid-cols-8 gap-4">
+    <div className={`grid grid-cols-8 gap-4`}>
       { renderCards() }
     </div>
   )
