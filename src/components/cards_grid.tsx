@@ -11,7 +11,7 @@ export default function CardsGrid() {
   
   const renderCards = () => {
     return cards.map((cardImage: CardImage) => (
-      <Card key={ uid() } body={ cardImage } />
+      <Card key={ uid() } card={ cardImage } />
     ));
   };
   
