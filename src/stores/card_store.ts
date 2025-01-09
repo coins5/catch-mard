@@ -1,8 +1,9 @@
 import { atom, onMount } from 'nanostores'
 import { getImages } from '../shared/images_service'
 import { $selectedDifficulty, $selectedCardsSearch } from '../stores/game_settings_store'
+import { CardImage } from '../models/card_imaage'
 
-export const $cards = atom<string[]>([])
+export const $cards = atom<CardImage[]>([])
 export const $isLoadingCards = atom<boolean>(false)
 
 

@@ -1,21 +1,23 @@
+import { CardImage } from '../models/card_imaage'
 import Card from './card'
 import { uid } from 'uid'
 
 interface CardListProps {
-  image_urls: string[]
+  cardImages: CardImage[]
   columns: number
 }
 
 
 export default function CardsGrid(props: CardListProps) {
-  const { image_urls, columns } = props
+  const { cardImages, columns } = props
 
   const renderCards = () => {
-    return image_urls.map((url: string) => (
-      <Card key={ uid() } image_url={ url } />
+    return cardImages.map((cardImage: CardImage) => (
+      <Card key={ uid() } image_url={ cardImage.image_url } />
     ));
   };
   
+  console.log(columns)
   // ! TODO: Problem with this columns
   return (
     <div className={`grid grid-cols-${columns} gap-4`}>

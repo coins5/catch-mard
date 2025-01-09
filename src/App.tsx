@@ -15,7 +15,7 @@ function App () {
         isLoadingCards ?
           <span className="loading loading-spinner loading-lg"></span>
           :
-          <CardsGrid image_urls={ cards } columns={selectedDifficulty.gridColumns} ></CardsGrid>   
+          <CardsGrid cardImages={ cards } columns={selectedDifficulty.gridColumns} ></CardsGrid>   
       }
     </div>
   )
