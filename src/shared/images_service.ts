@@ -1,6 +1,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { shuffle } from 'fast-shuffle'
-import { CardImage } from '../models/card_imaage'
+import { CardImage } from '../models/card_image'
 const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_API_KEY)
 
 interface ImageServiceProps {
@@ -9,16 +9,14 @@ interface ImageServiceProps {
   multiply: number
 }
 
-
-
 export async function getImages(props: ImageServiceProps) {
   const { search_query = 'ai', limit } = props
   try {
     const response = await gf.search(search_query, { limit })
-    // const rawResult = response.data.map(img => { image_ }  img.images.original.url)
     const rawResult: CardImage[] = response.data.map(img => ({
         image_url: img.images.original.url,
-        image_id: img.id
+        image_id: img.id,
+        image_title: img.title
       }) as CardImage
     )
     const result: CardImage[] = []

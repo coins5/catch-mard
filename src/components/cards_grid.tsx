@@ -1,26 +1,24 @@
-import { CardImage } from '../models/card_imaage'
+import { useStore } from '@nanostores/react'
+import { CardImage } from '../models/card_image'
 import Card from './card'
 import { uid } from 'uid'
+import { $cards } from '../stores/card_store'
+import { $selectedDifficulty } from '../stores/game_settings_store'
 
-interface CardListProps {
-  cardImages: CardImage[]
-  columns: number
-}
-
-
-export default function CardsGrid(props: CardListProps) {
-  const { cardImages, columns } = props
-
+export default function CardsGrid() {
+  const cards = useStore($cards)
+  const selectedDifficulty = useStore($selectedDifficulty)
+  
   const renderCards = () => {
-    return cardImages.map((cardImage: CardImage) => (
-      <Card key={ uid() } image_url={ cardImage.image_url } />
+    return cards.map((cardImage: CardImage) => (
+      <Card key={ uid() } body={ cardImage } />
     ));
   };
   
-  console.log(columns)
+  console.log(selectedDifficulty.gridColumns)
   // ! TODO: Problem with this columns
   return (
-    <div className={`grid grid-cols-${columns} gap-4`}>
+    <div className={`grid grid-cols-${selectedDifficulty.gridColumns} gap-4`}>
       { renderCards() }
     </div>
   )
