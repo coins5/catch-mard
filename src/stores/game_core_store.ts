@@ -1,9 +1,15 @@
-import { atom } from 'nanostores'
+import { atom, computed } from 'nanostores'
 import { CardImage } from '../models/card_image'
 import { $selectedDifficulty } from '../stores/game_settings_store'
 
 export const $selectedCards = atom<CardImage[]>([])
 export const $flippedCards = atom<CardImage[]>([])
+
+export const $theseCanNotBeFlippedAgain = computed(
+  [$selectedCards, $flippedCards],
+  (selected, flipped) => 
+    selected.map(s => s.image_id).concat(flipped.map(f => f.image_id))
+)
 
 export function flipCard (card: CardImage) {
   console.log('FLIPIINGGGG')

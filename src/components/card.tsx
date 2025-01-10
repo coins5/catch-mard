@@ -3,30 +3,32 @@ import { useSpring, a } from '@react-spring/web'
 import { CardImage } from '../models/card_image'
 import { $selectedDifficulty } from '../stores/game_settings_store'
 import { useStore } from '@nanostores/react'
-import { $flippedCards, $selectedCards, flipCard } from '../stores/game_core_store'
+// import { $flippedCards, $selectedCards, flipCard, $theseCanNotBeFlippedAgain } from '../stores/game_core_store'
+import { flipCard, $theseCanNotBeFlippedAgain } from '../stores/game_core_store'
 interface CardProps {
   card: CardImage
 }
 
-function getCardFlippedState (card: CardImage) {
-  // ! TODO: FLIPPING DOESNT FLIP >:(
-  console.log('GET FLIP STATE')
-  if ($selectedCards.value.length > 0 && card.image_id === $selectedCards.value[0].image_id) {
-    return true
-  }
+// function getCardFlippedState (card: CardImage) {
+//   // ! TODO: FLIPPING DOESNT FLIP >:(
+//   console.log('GET FLIP STATE')
+//   if ($selectedCards.value.length > 0 && card.image_id === $selectedCards.value[0].image_id) {
+//     return true
+//   }
 
-  if ($flippedCards.value.length > 0 && card.image_id === $flippedCards.value[0].image_id) {
-    return true
-  }
+//   if ($flippedCards.value.length > 0 && card.image_id === $flippedCards.value[0].image_id) {
+//     return true
+//   }
 
-  return false
-}
+//   return false
+// }
 
 export default function Card(props: CardProps) {
   const { card } = props
   const selectedDifficulty = useStore($selectedDifficulty)
+  const theseCanNotBeFlippedAgain = useStore($theseCanNotBeFlippedAgain)
   // const [flipped, set] = useState(false)
-  const isFlipped = getCardFlippedState(card)
+  const isFlipped = theseCanNotBeFlippedAgain.indexOf(card.image_id) > -1 // getCardFlippedState(card)
   const { transform, opacity } = useSpring({
     opacity: isFlipped ? 1 : 0,
     transform: `perspective(600px) rotateX(${isFlipped ? 180 : 0}deg)`,
@@ -34,8 +36,11 @@ export default function Card(props: CardProps) {
   })
 
   return (
-    <div className="stack" onClick={() => flipCard(card) }>
-      <a.figure style={{ opacity: opacity.to(o => 1 - o), transform }}>
+    <div className="stack">
+      <a.figure
+        style={{ opacity: opacity.to(o => 1 - o), transform }}
+        onClick={() => { flipCard(card) }}
+      >
         <img
           src="https://images.unsplash.com/photo-1544511916-0148ccdeb877?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1901&q=80i&auto=format&fit=crop"
           alt={ card.image_title }
