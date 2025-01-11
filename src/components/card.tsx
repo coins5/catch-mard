@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import { useSpring, a } from '@react-spring/web'
 import { CardImage } from '../models/card_image'
 import { $selectedDifficulty } from '../stores/game_settings_store'
@@ -27,19 +27,19 @@ export default function Card(props: CardProps) {
   const { card } = props
   const selectedDifficulty = useStore($selectedDifficulty)
   const theseCanNotBeFlippedAgain = useStore($theseCanNotBeFlippedAgain)
-  // const [flipped, set] = useState(false)
-  const isFlipped = theseCanNotBeFlippedAgain.indexOf(card.image_id) > -1 // getCardFlippedState(card)
+  const [flipped, set] = useState(false)
+  const isFlipped = theseCanNotBeFlippedAgain.indexOf(card.id) > -1 // getCardFlippedState(card)
   const { transform, opacity } = useSpring({
-    opacity: isFlipped ? 1 : 0,
-    transform: `perspective(600px) rotateX(${isFlipped ? 180 : 0}deg)`,
+    opacity: flipped ? 1 : 0,
+    transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
   })
 
   return (
-    <div className="stack">
+    <div className={`stack ${selectedDifficulty.cardSize}`} onClick={() => { if (!isFlipped) flipCard(card); set(s => !s) }}>
       <a.figure
+        className={selectedDifficulty.cardSize}
         style={{ opacity: opacity.to(o => 1 - o), transform }}
-        onClick={() => { flipCard(card) }}
       >
         <img
           src="https://images.unsplash.com/photo-1544511916-0148ccdeb877?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1901&q=80i&auto=format&fit=crop"
@@ -47,18 +47,23 @@ export default function Card(props: CardProps) {
           className={`rounded-xl shadow-xl object-cover ${selectedDifficulty.cardSize}`}
           />
       </a.figure>
+      
 
-      <a.figure style={{
-        opacity,
-        transform,
-        rotateX: '180deg',
-      }}>
+      <a.figure
+        className={selectedDifficulty.cardSize}
+        style={{
+          opacity,
+          transform,
+          rotateX: '180deg',
+        }}
+      >
         <img
           src={ card.image_url }
           alt="Shoes"
           className={`rounded-xl shadow-xl object-cover ${selectedDifficulty.cardSize}`}
           />
       </a.figure>
+      
     </div>
   )
 }
