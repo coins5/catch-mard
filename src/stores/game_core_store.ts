@@ -5,32 +5,47 @@ import { $selectedDifficulty } from '../stores/game_settings_store'
 export const $selectedCards = atom<CardImage[]>([])
 export const $flippedCards = atom<CardImage[]>([])
 
-export const $theseCanNotBeFlippedAgain = computed(
-  [$selectedCards, $flippedCards],
-  (selected, flipped) => 
-    selected.map(s => s.id).concat(flipped.map(f => f.id))
+export const $isSelectedAlready = computed(
+  $selectedCards,
+  c => c.map(s => s.id)
 )
 
-export function flipCard (card: CardImage) {
-  console.log('FLIPIINGGGG')
-  
+export const $isFlippedAlready = computed(
+  $flippedCards,
+  c => c.map(s => s.id)
+)
+
+
+export function playCard (card: CardImage) {
+  console.log('PLAYING')
+
   if ($selectedCards.value.length === 0) {
     $selectedCards.value.push(card)
-  } else {
-    // ? Check if card is already selected
-    if ($selectedCards.value[0].image_id === card.image_id && $theseCanNotBeFlippedAgain.value && $theseCanNotBeFlippedAgain.value.indexOf(card.id) > -1 ) {
-      $selectedCards.value.push(card)
+    $selectedCards.set([...$selectedCards.value])
 
+    console.log('ITS ALONE, FLIP IT')
+  } else {
+    $selectedCards.value.push(card)
+    $selectedCards.set([...$selectedCards.value])
+
+    // ? Check if card is already selected
+    if ($selectedCards.value[0].image_id === card.image_id) {
+      
+      $selectedCards.set([...$selectedCards.value])
+
+      console.log('ITS A MATCH! FLIP THEM')
       // ? check if all cards requirement are selected
       if ($selectedDifficulty.value.itemsToCollect >= $selectedCards.value.length) {
         $flippedCards.set([...$flippedCards.value, ...$selectedCards.value])
-        $selectedCards.value.length = 0
+        $selectedCards.set([])
+
+        console.log('FLIPPED NOW!')
       }
     } else {
-      $selectedCards.value.length = 0
+      console.log('ITS NOT A MATCH! FLIP THEM BACK')
+      window.setTimeout(() => {
+        $selectedCards.set([])
+      }, 750)
     }
   }
-
-  console.log(JSON.parse(JSON.stringify($selectedCards.value))  )
-  console.log(JSON.parse(JSON.stringify($flippedCards.value)) )
 }

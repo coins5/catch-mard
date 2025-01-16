@@ -2,7 +2,7 @@ export interface IDifficultySpec {
   id: string;
   name: string;
   cardsCount: number;
-  gridColumns: number;
+  // gridColumns: number;
   cardSize: string;
   itemsToCollect: number;
   maxErrors: number;
@@ -15,8 +15,8 @@ export const availabelDifficulties: IDifficultySpec[] = [
     id: 'easy',
     name: 'Easy',
     cardsCount: 4,
-    gridColumns: 4,
-    cardSize: 'w-80 h-80',
+    // gridColumns: 4,
+    cardSize: 'w-40 h-40',
     itemsToCollect: 2,
     maxErrors: 3,
     randomMoveAfterPick: false,
@@ -26,8 +26,8 @@ export const availabelDifficulties: IDifficultySpec[] = [
     id: 'medium',
     name: 'Medium',
     cardsCount: 12,
-    gridColumns: 6,
-    cardSize: 'w-48 h-48',
+    // gridColumns: 6,
+    cardSize: 'w-40 h-40',
     itemsToCollect: 2,
     maxErrors: 4,
     randomMoveAfterPick: false,
@@ -37,7 +37,7 @@ export const availabelDifficulties: IDifficultySpec[] = [
     id: 'hard',
     name: 'Hard',
     cardsCount: 24,
-    gridColumns: 8,
+    // gridColumns: 8,
     cardSize: 'w-40 h-40',
     itemsToCollect: 3,
     maxErrors: 5,
@@ -48,7 +48,7 @@ export const availabelDifficulties: IDifficultySpec[] = [
     id: 'darksouls',
     name: 'Dark Souls',
     cardsCount: 48,
-    gridColumns: 8,
+    // gridColumns: 8,
     cardSize: 'w-40 h-40',
     itemsToCollect: 4,
     maxErrors: 6,
