@@ -2,7 +2,6 @@ import { useSpring, a } from '@react-spring/web'
 import { CardImage } from '../models/card_image'
 import { $selectedDifficulty } from '../stores/game_settings_store'
 import { useStore } from '@nanostores/react'
-// import { $flippedCards, $selectedCards, flipCard, $theseCanNotBeFlippedAgain } from '../stores/game_core_store'
 import { playCard } from '../stores/game_core_store'
 interface CardProps {
   card: CardImage
@@ -31,7 +30,6 @@ export default function Card(props: CardProps) {
             className={`rounded-xl shadow-xl object-cover ${selectedDifficulty.cardSize}`}
             />
         </a.figure>
-        
 
         <a.figure
           className={selectedDifficulty.cardSize}
