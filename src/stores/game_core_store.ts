@@ -43,7 +43,7 @@ export function playCard (card: CardImage) {
   const { cardsCount, itemsToCollect } = $selectedDifficulty.value
 
   // ? check if all cards requirement are selected
-  if (itemsToCollect >= $selectedCards.value.length) {
+  if ($selectedCards.value.length >= itemsToCollect) {
     $flippedCards.set([...$flippedCards.value, ...$selectedCards.value])
     $selectedCards.set([])
 

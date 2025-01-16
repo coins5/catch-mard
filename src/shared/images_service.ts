@@ -19,7 +19,7 @@ export async function getImages(props: ImageServiceProps) {
       for (let i = 0; i < props.multiply; i++) {
         result.push({
           id: uid(), // card id, used in react
-          image_url: img.images.original.url, 
+          image_url: img.images.fixed_height.url, // img.images.original.url, 
           image_id: img.id as string, // image_id from giphy
           image_title: img.title
         })
