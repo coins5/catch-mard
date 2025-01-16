@@ -16,7 +16,6 @@ export const $isFlippedAlready = computed(
   c => c.map(s => s.id)
 )
 
-
 export function playCard (card: CardImage) {
   if ($selectedCards.value.length === 0) {
     $selectedCards.set([card])
