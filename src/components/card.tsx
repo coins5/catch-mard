@@ -19,7 +19,7 @@ export default function Card(props: CardProps) {
 
   return (
     <>
-      <div className={`stack ${selectedDifficulty.cardSize}`} onClick={() => { if (!isAlreadyFlipped) { playCard(card) } }}>
+      <div className={`cursor-pointer stack ${selectedDifficulty.cardSize}`} onClick={() => { if (!isAlreadyFlipped) { playCard(card) } }}>
         <a.figure
           className={selectedDifficulty.cardSize}
           style={{ opacity: opacity.to(o => 1 - o), transform }}
