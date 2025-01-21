@@ -2,13 +2,14 @@ import { useStore } from '@nanostores/react'
 import { CardImage } from '../models/card_image'
 import Card from './card'
 import { $cards } from '../stores/card_store'
-import { $isSelectedAlready, $isFlippedAlready, $gameStage } from '../stores/game_core_store'
+import { $isSelectedAlready, $isFlippedAlready } from '../stores/game_core_store'
+import { $gameStatus } from '../stores/game_status_store'
 
 export default function CardsGrid() {
   const cards = useStore($cards)
   const isSelectedAlready = useStore($isSelectedAlready)
   const isFlippedAlready = useStore($isFlippedAlready)
-  const gameStage = useStore($gameStage)
+  const gameStatus = useStore($gameStatus)
   
   const renderCards = () => {
     return cards.map((cardImage: CardImage) => (
@@ -26,7 +27,7 @@ export default function CardsGrid() {
   // ! TODO: Problem with this columns
   return (
     <>
-    <div>{ `gameStage=${JSON.stringify(gameStage)}` }</div>
+    <div>{ `gameStatus=${JSON.stringify(gameStatus)}` }</div>
       <div className="grid grid-cols-8 gap-4 justify-items-center">
         
         { renderCards() }

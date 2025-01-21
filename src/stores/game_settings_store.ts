@@ -1,5 +1,6 @@
 import { atom } from "nanostores";
 import { IDifficultySpec, availabelDifficulties } from "../models/game_settings";
+import { $audioStatus } from "./game_status_store";
 
 import easy from '../assets/easy.wav'
 import medium from '../assets/medium.wav'
@@ -33,14 +34,21 @@ export const $selectedDifficulty = atom<IDifficultySpec>(findDifficultyById('eas
 export const $selectedCardsSearch = atom<string>('ai')
 
 export function selectDifficulty (difficultyid: string) {
+  
   $audio.value.pause()
+  $audio.set(audios[difficultyid])
+  $audio.value.loop = true
+  if ($audioStatus.get() === "ON") {
+    $audio.value.play()  
+  } else {
+    $audio.value.pause()
+  }
+  
+
+
   $selectedDifficulty.set(
     findDifficultyById(difficultyid)
   )
-
-  $audio.set(audios[difficultyid])
-  $audio.value.loop = true
-  $audio.value.play()
 
   $difficultyLevelImage.set(difficultyImage[difficultyid])
 }

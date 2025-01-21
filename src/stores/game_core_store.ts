@@ -1,10 +1,11 @@
 import { atom, computed } from 'nanostores'
 import { CardImage } from '../models/card_image'
 import { $selectedDifficulty } from '../stores/game_settings_store'
+import { $gameStatus } from './game_status_store'
 
 export const $selectedCards = atom<CardImage[]>([])
 export const $flippedCards = atom<CardImage[]>([])
-export const $gameStage = atom<"PLAYING" | "WON" | "LOSE">("PLAYING")
+
 
 export const $isSelectedAlready = computed(
   $selectedCards,
@@ -52,7 +53,7 @@ export function playCard (card: CardImage) {
 
   // ? check if all cards are flipped
   if ($flippedCards.value.length === cardsCount * itemsToCollect) {
-    $gameStage.set("WON")
+    $gameStatus.set("WON")
     console.log("I CAN'T! BELIEVE IT, YOU WON!")
   }
 
