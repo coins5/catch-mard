@@ -1,9 +1,20 @@
-import GameSettingsCard from "./game_settings_card"
-
 export default function Header () {
   return (
-    <div className="py-8">      
-      <GameSettingsCard />
+    <div className="flex justify-around py-8">
+      <div className="text-2xl">
+        Catch Mard
+      </div>
+
+      
+      <div className="text-center">
+        <button className="btn btn-primary">Surrender?</button>
+        <br />
+        <span className="text-xs">
+          Or just press F5
+        </span>
+      </div>
+
+      
     </div>
   )
 }

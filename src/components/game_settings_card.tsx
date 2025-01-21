@@ -3,6 +3,7 @@ import {
 } from "../models/game_settings"
 
 import {
+  $audio,
   $selectedDifficulty,
   $difficultyLevelImage,
   selectDifficulty,
@@ -10,6 +11,8 @@ import {
 } from "../stores/game_settings_store"
 import { loadCards } from "../stores/card_store"
 import { useStore } from "@nanostores/react"
+import { $gameStatus, $audioStatus } from "../stores/game_status_store"
+
 
 function updateGameSettings (e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault()
@@ -18,6 +21,28 @@ function updateGameSettings (e: React.FormEvent<HTMLFormElement>) {
   )
   loadCards()
 }
+
+function toggleAudio (e: React.ChangeEvent<HTMLInputElement>) {
+  console.log(e.target.checked)
+  if (e.target.checked) {
+    $audioStatus.set("ON")
+    $audio.value.play()
+  } else {
+    $audioStatus.set("OFF")
+    $audio.value.pause()
+  }
+}
+
+function startGame () {
+  const cardsImages = (document.getElementById('search_image_text') as HTMLInputElement).value
+  if (cardsImages && cardsImages.length > 0) {
+    selectCardsSearch(cardsImages)
+  }
+  
+  loadCards()
+  $gameStatus.set("PLAYING")
+}
+
 export default function Header () {
   const selectedDifficulty = useStore($selectedDifficulty)
   const difficultyLevelImage = useStore($difficultyLevelImage)
@@ -34,11 +59,19 @@ export default function Header () {
     
       <div className="card-body">
         <h2 className="card-title">Settings</h2>
-        <p className="mb-8">
+        <p className="mb-6">
           { selectedDifficulty.description }
         </p>
+
         <form onSubmit={ updateGameSettings }>
-          <div className="join pr-8">
+          <div className="form-control pb-4">
+            <label className="label cursor-pointer">
+              <span className="label-text">Wanna listen something while you lose?</span>
+              <input type="checkbox" className="toggle" onChange={e => toggleAudio(e) } />
+            </label>
+          </div>
+
+          <div className="join pb-4">
             {
               availabelDifficulties.map(ad => 
                 <input
@@ -54,16 +87,12 @@ export default function Header () {
               )
             }
           </div>
-          <br />
-          <br />
-          <div className="join">
-            <input id="search_image_text" className="input input-bordered join-item" placeholder="Theme cards, default ia" />
-            <input type="submit" className="btn join-item rounded-r-full" value="Search" />
-          </div>
+          
+          <input id="search_image_text" className="input input-bordered w-full max-w-xs" placeholder="Theme cards, default ia" />
 
         </form>
         <div className="card-actions justify-end mt-8">
-          <button className="btn btn-primary">Done</button>
+          <button className="btn btn-primary" onClick={startGame}>Done</button>
         </div>
       </div>
     </div>
