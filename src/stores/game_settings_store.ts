@@ -51,6 +51,14 @@ export function selectDifficulty (difficultyid: string) {
   )
 
   $difficultyLevelImage.set(difficultyImage[difficultyid])
+
+  // * Changing color theme
+  const ht = window.document.getElementsByTagName("html")
+  if (difficultyid === "darksouls") {
+    ht[0].setAttribute("data-theme", "dracula")
+  } else {
+    ht[0].setAttribute("data-theme", "autumn")
+  }
 }
 
 export function selectCardsSearch (search: string) {

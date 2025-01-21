@@ -11,7 +11,8 @@ import {
 } from "../stores/game_settings_store"
 import { loadCards } from "../stores/card_store"
 import { useStore } from "@nanostores/react"
-import { $audioStatus } from "../stores/game_status_store"
+import { $gameStatus, $audioStatus } from "../stores/game_status_store"
+
 
 function updateGameSettings (e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault()
@@ -30,6 +31,16 @@ function toggleAudio (e: React.ChangeEvent<HTMLInputElement>) {
     $audioStatus.set("OFF")
     $audio.value.pause()
   }
+}
+
+function startGame () {
+  const cardsImages = (document.getElementById('search_image_text') as HTMLInputElement).value
+  if (cardsImages && cardsImages.length > 0) {
+    selectCardsSearch(cardsImages)
+  }
+  
+  loadCards()
+  $gameStatus.set("PLAYING")
 }
 
 export default function Header () {
@@ -76,17 +87,12 @@ export default function Header () {
               )
             }
           </div>
-
           
-
-          <div className="join">
-            <input id="search_image_text" className="input input-bordered join-item" placeholder="Theme cards, default ia" />
-            <input type="submit" className="btn join-item rounded-r-full" value="Search" />
-          </div>
+          <input id="search_image_text" className="input input-bordered w-full max-w-xs" placeholder="Theme cards, default ia" />
 
         </form>
         <div className="card-actions justify-end mt-8">
-          <button className="btn btn-primary">Done</button>
+          <button className="btn btn-primary" onClick={startGame}>Done</button>
         </div>
       </div>
     </div>
