@@ -1,10 +1,16 @@
-import { atom, computed } from 'nanostores'
+import { atom, computed, map } from 'nanostores'
 import { CardImage } from '../models/card_image'
 import { $selectedDifficulty } from '../stores/game_settings_store'
 import { $gameStatus } from './game_status_store'
 
+// TODO: continue from here
 export const $selectedCards = atom<CardImage[]>([])
 export const $flippedCards = atom<CardImage[]>([])
+export const $gameStats = map({
+  flipCount: 0,
+  errors: 0,
+  time: 0
+})
 
 
 export const $isSelectedAlready = computed(
